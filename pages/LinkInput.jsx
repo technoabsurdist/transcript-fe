@@ -25,7 +25,7 @@ const LinkInput = () => {
         // Title
         doc.setFontSize(titleSize);
         const trimmedTitle = title.length > 45 ? title.substring(0, 42) + '...' : title;
-        doc.text(`${trimmedTitle} --Transcript`, 10, margin);
+        title ? doc.text(`${trimmedTitle} --Transcript`, 10, margin) : ""
     
         let yPosition = margin + titleSize;
     
