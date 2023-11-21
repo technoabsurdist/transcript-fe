@@ -21,6 +21,11 @@ export default function Home() {
         </p>
         <LinkInput /> 
       </main>
+        <footer>
+          Powered by 
+          <img src="/sieve.png" height="20" width="20" alt="Sieve Logo" /> 
+          <img src="/openai.png" height="20" width="20" alt="Sieve Logo" /> 
+      </footer>
 
       <style jsx>{`
         main {

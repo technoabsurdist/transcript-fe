@@ -18,32 +18,55 @@ const LinkInput = () => {
         return regex.test(url);
     };
 
-    const createPdf = (text, title) => {
+    function addTitle(doc, title, titleSize, margin) {
+        const trimmedTitle = title.length > 45 ? title.substring(0, 42) + '...' : title;
+        title && doc.text(`${trimmedTitle} -- Transcript`, 10, margin);
+    }
+    
+    function addContentSection(doc, contentLines, lineHeight, yPosition, bottomMargin, sectionTitle) {
+        if (contentLines.length > 0) {
+            yPosition += 5; // Extra spacing before new section
+            doc.setFontSize(14);
+            doc.text(sectionTitle, 10, yPosition);
+            yPosition += lineHeight;
+    
+            doc.setFontSize(12);
+            contentLines.forEach(line => {
+                if (yPosition + lineHeight > 297 - bottomMargin) {
+                    doc.addPage();
+                    yPosition = bottomMargin; // Reset Y position after page break
+                    doc.setFontSize(14);
+                    doc.text(sectionTitle, 10, yPosition);
+                    yPosition += lineHeight;
+                    doc.setFontSize(12);
+                }
+                doc.text(line, 10, yPosition);
+                yPosition += lineHeight;
+            });
+        }
+        return yPosition;
+    }
+    
+    function formatChapters(chapters) {
+        return chapters.map(chapter => `${chapter.title} (Starts at: ${chapter.timecode})`);
+    }
+    
+    function createPdf(text, summary, title, tags, chapters) {
         const doc = new jsPDF();
         const titleSize = 18;
         const lineHeight = 10;
         const margin = 10;
     
-        // Title
-        doc.setFontSize(titleSize);
-        const trimmedTitle = title.length > 45 ? title.substring(0, 42) + '...' : title;
-        title ? doc.text(`${trimmedTitle} --Transcript`, 10, margin) : ""
+        addTitle(doc, title, titleSize, margin);
     
-        // Text
-        let yPosition = margin + titleSize;
-        doc.setFontSize(12);
-        const lines = doc.splitTextToSize(text, 180);
-        lines.forEach(line => {
-            if (yPosition + lineHeight > 297 - margin) {
-                doc.addPage();
-                yPosition = margin;
-            }
-            doc.text(line, 10, yPosition);
-            yPosition += lineHeight;
-        });
+        let currentY = margin + titleSize + 5;
+        currentY = addContentSection(doc, formatChapters(chapters), lineHeight, currentY, margin, 'Chapters:');
+        currentY = addContentSection(doc, tags.length > 0 ? ['Tags: ' + tags.join(', ')] : [], lineHeight, currentY, margin, '');
+        currentY = addContentSection(doc, doc.splitTextToSize(summary, 180), lineHeight, currentY, margin, 'Summary:');
+        addContentSection(doc, doc.splitTextToSize(text, 180), lineHeight, currentY, margin, 'Text:');
     
         return doc.output("blob");
-    };
+    }
 
     const submitLink = () => {
         setDownloadUrl(null)
@@ -56,14 +79,14 @@ const LinkInput = () => {
         setIsLoading(true);
         const options = {
             method: 'POST',
-            url: TESTURL,
+            url: PRODURL,
             headers: {'Content-Type': 'application/json', 'User-Agent': 'insomnia/8.4.0'},
             data: { link }
         };
     
         axios.request(options).then(function (response) {
-            const { text, title } = response.data;
-            const pdfBlob = createPdf(text, title);
+            const { text, summary, title, tags, chapters } = response.data
+            const pdfBlob = createPdf(text, summary, title, tags, chapters);
             const pdfUrl = URL.createObjectURL(pdfBlob);
             setDownloadUrl(pdfUrl);
             setIsLoading(false);
