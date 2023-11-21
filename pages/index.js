@@ -6,13 +6,13 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Transcript AI</title>
+        <title>Youtube Transcript AI</title>
         <link rel="icon" href="/yb.png" />
         <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
       </Head>
 
       <main>
-        <img src="/yb.png" height="150" width="150" alt="YouTube Logo" className={styles.youtubeLogo} />
+        <img src="/yb.png" height="150" width="170" alt="YouTube Logo" className={styles.youtubeLogo} />
         <h1 className={styles.title}>
           <a href="https://github.com/technoabsurdist/transcript.ai" target='_blank'>YouTube Transcript</a>
         </h1>
@@ -22,13 +22,13 @@ export default function Home() {
         </p>
         <LinkInput /> 
       </main>
-        <footer style={{ fontFamily: 'VT323', fontSize: '22px' }}>
+        <footer style={{ fontFamily: 'VT323', fontSize: '25px' }}>
           Powered by 
           <a href="https://www.sievedata.com/" target='_blank'>
-            <img src="/sieve.png" height="20" width="20" alt="Sieve Logo" /> 
+            <img src="/sieve.png" height="30" width="30" alt="Sieve Logo" /> 
           </a>
           <a href="https://openai.com/" target='_blank'>
-            <img src="/openai.png" height="20" width="20" alt="Sieve Logo" /> 
+            <img src="/openai.png" height="30" width="30" alt="Sieve Logo" /> 
           </a>
         </footer>
 
