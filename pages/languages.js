@@ -1,4 +1,4 @@
-export const languages = {
+const languages = {
     Afrikaans: "🇿🇦",
     Arabic: "🇸🇦",
     Armenian: "🇦🇲",
@@ -57,3 +57,5 @@ export const languages = {
     Vietnamese: "🇻🇳",
     Welsh: "🇬🇧" // Using the UK's flag as there is no specific flag for Welsh
 };
+
+export default languages
