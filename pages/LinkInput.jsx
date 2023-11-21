@@ -12,16 +12,6 @@ const LinkInput = () => {
     const [link, setLink] = useState('');
     const [downloadUrl, setDownloadUrl] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [selectedLanguage, setSelectedLanguage] = useState('English');
-    const [processingType, setProcessingType] = useState("Raw Transcription")
-
-    const handleLanguageChange = (e) => {
-        setSelectedLanguage(e.target.value);
-    };
-
-    const handleProcessingChange = (e) => {
-        setProcessingType(e.target.value)
-    }
 
     const isValidYoutubeLink = (url) => {
         const regex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
@@ -68,7 +58,7 @@ const LinkInput = () => {
             method: 'POST',
             url: TESTURL,
             headers: {'Content-Type': 'application/json', 'User-Agent': 'insomnia/8.4.0'},
-            data: { link, selectedLanguage }
+            data: { link }
         };
     
         axios.request(options).then(function (response) {
@@ -97,30 +87,6 @@ const LinkInput = () => {
                     value={link}
                     onChange={(e) => setLink(e.target.value)}
                 /> 
-                <div class="dropdownsContainer">
-                    <select
-                        value={selectedLanguage}
-                        onChange={handleLanguageChange}
-                        className={styles.languageDropdown}
-                    >
-                        {Object.entries(languages).map(([language, flag]) => (
-                            <option key={language} value={language}>
-                                {flag} {language}
-                            </option>
-                        ))}
-                    </select>
-                    <select
-                        value={processingType}
-                        onChange={handleProcessingChange}
-                        className={styles.languageDropdown}
-                    >
-                        {Object.entries(ProcessingTypes).map(([key, value]) => (
-                            <option key={key} value={key}>
-                                {value}
-                            </option>
-                        ))}
-                    </select>
-                </div>
                 <button 
                     type="button" 
                     onClick={submitLink} 
@@ -129,8 +95,11 @@ const LinkInput = () => {
                     Submit
                 </button>
             </div>
+                <p className={styles.warningText}>
+                    <span style={{ fontWeight: '600'}}>Warning</span>: cannot process regionally restricted, private, or videos longer than thirty minutes. 
+                </p>
             <div>
-                {isLoading ? <div className={styles.response}>Loading... (Processing may take up to 1-3 minutes)</div> : (
+                {isLoading ? <div className={styles.response}>Loading... (Processing may take 1-5 minutes)</div> : (
                     downloadUrl && <a href={downloadUrl} download="transcript.pdf" className={styles.downloadLink}>Download Transcript!</a>
                 )}
             </div>

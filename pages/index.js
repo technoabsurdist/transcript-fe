@@ -17,7 +17,7 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Generate transcripts for YouTube videos in over 50 languages
+          Develop detailed transcripts in over 50 languages, <br /> enhanced with AI-created titles, chapter divisions, <br /> concise summaries, and relevant tags.
         </p>
         <LinkInput /> 
       </main>

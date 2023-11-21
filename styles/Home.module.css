@@ -29,8 +29,8 @@
 }
 
 .description {
-  line-height: 2;
-  font-size: 1rem;
+  line-height: 1.7;
+  font-size: 1.2rem;
   margin-bottom: 1rem; 
   font-weight: 600;
 }
@@ -128,7 +128,7 @@
 }
 
 .description {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   padding: 0 1rem; 
 }
 
