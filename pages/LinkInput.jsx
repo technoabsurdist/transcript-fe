@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styles from './LinkInput.module.css';
+import { jsPDF } from "jspdf";
+
+const TESTURL = "http://localhost:3001/submit"
+const PRODURL = 'https://transcription-youtube-ai-8dbe03372f2a.herokuapp.com/submit/'
 
 const LinkInput = () => {
     const [link, setLink] = useState('');
@@ -15,33 +19,48 @@ const LinkInput = () => {
     const submitLink = () => {
         if (!isValidYoutubeLink(link)) {
             alert("Error: Not a valid YouTube link. Please enter a valid YouTube URL.");
-            setLink('')
+            setLink('');
             return;
         }
-
+    
         setIsLoading(true);
         const options = {
             method: 'POST',
-            url: 'https://transcription-youtube-ai-8dbe03372f2a.herokuapp.com/submit/',
+            url: TESTURL,
             headers: {'Content-Type': 'application/json', 'User-Agent': 'insomnia/8.4.0'},
             data: { link }
         };
-
+    
         axios.request(options).then(function (response) {
             const responseText = response.data.text;
-            setIsLoading(false);
-
-            const blob = new Blob([responseText], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            setDownloadUrl(url);
+            const doc = new jsPDF();
+            const lines = doc.splitTextToSize(responseText, 180);
+            const lineHeight = 10;
+            const margin = 10;
+            let yPosition = margin;
+    
+            lines.forEach(line => {
+                if (yPosition + lineHeight > 297 - margin) {
+                    doc.addPage();
+                    yPosition = margin;
+                }
+                doc.text(line, 10, yPosition);
+                yPosition += lineHeight;
+            });
+    
+            const pdfBlob = doc.output("blob");
+            const pdfUrl = URL.createObjectURL(pdfBlob);
+            setDownloadUrl(pdfUrl);
+            setIsLoading(false); 
         }).catch(function (error) {
             console.error(error);
             alert('An error occurred while processing your request');
-            setIsLoading(false);
+            setIsLoading(false); 
         });
-
+    
         setLink('');
     };
+    
 
     return (
         <>
@@ -63,7 +82,7 @@ const LinkInput = () => {
             </div>
             <div>
                 {isLoading ? <div className={styles.response}>Loading... (Processing may take up to 1-3 minutes)</div> : (
-                    downloadUrl && <a href={downloadUrl} download="transcript.txt" className={styles.downloadLink}>Download Transcript!</a>
+                    downloadUrl && <a href={downloadUrl} download="transcript.pdf" className={styles.downloadLink}>Download Transcript!</a>
                 )}
             </div>
         </>
