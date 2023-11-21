@@ -60,7 +60,7 @@ const LinkInput = () => {
         setIsLoading(true);
         const options = {
             method: 'POST',
-            url: TESTURL,
+            url: PRODURL,
             headers: {'Content-Type': 'application/json', 'User-Agent': 'insomnia/8.4.0'},
             data: { link, selectedLanguage }
         };
