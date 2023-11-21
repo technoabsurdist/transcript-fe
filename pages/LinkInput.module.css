@@ -9,11 +9,13 @@
 .inputBar {
     padding: 10px;
     border: 2px solid #040000;
-    border-radius: 5px;
+    border-radius: 5px 0 0 5px; /* Rounded corners on the left side */
     outline: none;
-    width: 350px;
+    width: 300px;
     transition: border-color 0.3s;
     font-size: 20px;
+    margin-right: -2px; /* Negative margin to overlap borders */
+    box-sizing: border-box;
 }
 
 .submitButton {
@@ -83,5 +85,42 @@
 
     .response, .downloadLink {
         max-width: 100%; 
+    }
+}
+
+.languageDropdown {
+    padding: 10px;
+    border: 2px solid #040000;
+    border-radius: 0 5px 5px 0; /* Rounded corners on the right side */
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    font-size: 18px;
+    transition: border-color 0.3s, background-color 0.3s;
+    margin-left: -10px; /* Negative margin to overlap borders */
+    box-sizing: border-box;
+}
+
+.languageDropdown:hover {
+    border-color: #505050;
+    background-color: #f8f8f8;
+}
+
+.languageDropdown:focus {
+    outline: none;
+    border-color: #252525; /* A light blue to indicate focus */
+}
+
+@media (max-width: 600px) {
+    .languageDropdown {
+        font-size: 16px;
+        padding: 8px;
+        margin-left: -2px;
+    }
+
+    .inputBar {
+        font-size: 16px;
+        padding: 8px;
+        margin-right: -2px;
     }
 }

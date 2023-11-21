@@ -17,7 +17,7 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Generate a transcript for any youtube video!
+          Create English Youtube video transcripts from over 50+ languages!
         </p>
         <LinkInput /> 
       </main>

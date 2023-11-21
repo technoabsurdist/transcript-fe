@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from './LinkInput.module.css';
 import { jsPDF } from "jspdf";
+import { languages } from './languages';
 
 const TESTURL = "http://localhost:3001/submit"
 const PRODURL = 'https://transcription-youtube-ai-8dbe03372f2a.herokuapp.com/submit/'
@@ -10,6 +11,11 @@ const LinkInput = () => {
     const [link, setLink] = useState('');
     const [downloadUrl, setDownloadUrl] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [selectedLanguage, setSelectedLanguage] = useState('English');
+
+    const handleLanguageChange = (e) => {
+        setSelectedLanguage(e.target.value);
+    };
 
     const isValidYoutubeLink = (url) => {
         const regex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
@@ -27,10 +33,9 @@ const LinkInput = () => {
         const trimmedTitle = title.length > 45 ? title.substring(0, 42) + '...' : title;
         title ? doc.text(`${trimmedTitle} --Transcript`, 10, margin) : ""
     
+        // Text
         let yPosition = margin + titleSize;
-    
         doc.setFontSize(12);
-    
         const lines = doc.splitTextToSize(text, 180);
         lines.forEach(line => {
             if (yPosition + lineHeight > 297 - margin) {
@@ -57,7 +62,7 @@ const LinkInput = () => {
             method: 'POST',
             url: TESTURL,
             headers: {'Content-Type': 'application/json', 'User-Agent': 'insomnia/8.4.0'},
-            data: { link }
+            data: { link, selectedLanguage }
         };
     
         axios.request(options).then(function (response) {
@@ -86,6 +91,17 @@ const LinkInput = () => {
                     value={link}
                     onChange={(e) => setLink(e.target.value)}
                 /> 
+                <select
+                    value={selectedLanguage}
+                    onChange={handleLanguageChange}
+                    className={styles.languageDropdown}
+                >
+                    {Object.entries(languages).map(([language, flag]) => (
+                        <option key={language} value={language}>
+                            {flag} {language}
+                        </option>
+                    ))}
+                </select>
                 <button 
                     type="button" 
                     onClick={submitLink} 
