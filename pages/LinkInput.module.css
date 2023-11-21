@@ -27,10 +27,6 @@
     font-size: 20px;
 }
 
-.submitButton:hover {
-    background-color: #FF0000;
-}
-
 .response {
     margin-top: 20px;
     padding: 10px;
@@ -48,13 +44,13 @@
 
 .downloadLink {
     display: inline-block;
-    margin-top: 15px;
+    margin-top: 20px;
     padding: 10px 20px;
-    background-color: #4CAF50; 
+    background-color: #545454; 
     color: white;
     text-decoration: none;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     transition: background-color 0.3s, color 0.3s;
 
@@ -62,8 +58,7 @@
 }
 
 .downloadLink:hover {
-    background-color: #45a049; 
-    text-decoration: underline;
+    background-color: #3a3a3a; 
 }
 
 .downloadLink:focus {

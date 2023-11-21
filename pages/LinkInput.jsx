@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from './LinkInput.module.css';
 
-export const LinkInput = () => {
+const LinkInput = () => {
     const [link, setLink] = useState('');
     const [downloadUrl, setDownloadUrl] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -68,3 +68,5 @@ export const LinkInput = () => {
         </>
    );
 }
+
+export default LinkInput

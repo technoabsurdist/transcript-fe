@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import { LinkInput } from './LinkInput';
+import LinkInput from './LinkInput';
 
 export default function Home() {
   return (
