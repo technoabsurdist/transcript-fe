@@ -25,10 +25,10 @@ export default function Home() {
         <footer style={{ fontFamily: 'VT323', fontSize: '25px' }}>
           Powered by 
           <a href="https://www.sievedata.com/" target='_blank'>
-            <img src="/sieve.png" height="30" width="30" alt="Sieve Logo" /> 
+            <img src="/sieve.png" height="25" width="25" alt="Sieve Logo" /> 
           </a>
           <a href="https://openai.com/" target='_blank'>
-            <img src="/openai.png" height="30" width="30" alt="Sieve Logo" /> 
+            <img src="/openai.png" height="25" width="25" alt="Sieve Logo" /> 
           </a>
         </footer>
 
