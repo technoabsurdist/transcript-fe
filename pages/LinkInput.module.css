@@ -8,7 +8,7 @@
 
 .inputBar {
     padding: 10px;
-    border: 2px solid #007bff;
+    border: 2px solid #040000;
     border-radius: 5px;
     outline: none;
     width: 350px;
@@ -16,13 +16,9 @@
     font-size: 20px;
 }
 
-.inputBar:focus {
-    border: 2px solid #007bff;
-}
-
 .submitButton {
     padding: 12px 15px;
-    background-color: #007bff;
+    background-color: #000000;
     border: none;
     border-radius: 5px;
     color: white;
@@ -32,7 +28,7 @@
 }
 
 .submitButton:hover {
-    background-color: #0056b3;
+    background-color: #FF0000;
 }
 
 .response {

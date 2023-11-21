@@ -6,13 +6,14 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Transcription.ai</title>
+        <title>YB Transcript</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
+        <img src="/youtube.svg" height="150" width="100" alt="YouTube Logo" className={styles.youtubeLogo} />
         <h1 className={styles.title}>
-          <a href="https://github.com/technoabsurdist/transcript.ai" target='_blank'>Transcript.ai</a>
+          <a href="https://github.com/technoabsurdist/transcript.ai" target='_blank'>Youtube Transcript</a>
         </h1>
 
         <p className={styles.description}>

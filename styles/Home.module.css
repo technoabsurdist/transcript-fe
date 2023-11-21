@@ -8,14 +8,8 @@
 }
 
 .title a {
-  color: #0070f3;
+  color: #FF0000;
   text-decoration: none;
-}
-
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
 }
 
 .title {
@@ -38,6 +32,7 @@
   line-height: 2;
   font-size: 1rem;
   margin-bottom: 1rem; 
+  font-weight: 500;
 }
 
 .grid {
@@ -67,8 +62,8 @@
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+  color: #FF0000;
+  border-color: #FF0000;
 }
 
 .card h3 {
@@ -103,19 +98,19 @@
 
 #inputBar {
   padding: 10px;
-  border: 2px solid #007bff;
+  border: 2px solid #FF0000;
   border-radius: 5px;
   font-size: 16px;
   outline: none;
 }
 
 #inputBar:focus {
-  border-color: #0056b3;
+  border-color: #FF0000;
 }
 
 #submitButton {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #FF0000;
   color: white;
   border: none;
   border-radius: 5px;
@@ -124,6 +119,6 @@
 }
 
 #submitButton:hover {
-  background-color: #0056b3;
+  background-color: #FF0000;
 }
 
