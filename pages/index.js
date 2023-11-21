@@ -6,12 +6,13 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>YB Transcript</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Transcript AI</title>
+        <link rel="icon" href="/yb.png" />
+        <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
       </Head>
 
       <main>
-        <img src="/youtube.svg" height="150" width="100" alt="YouTube Logo" className={styles.youtubeLogo} />
+        <img src="/yb.png" height="150" width="150" alt="YouTube Logo" className={styles.youtubeLogo} />
         <h1 className={styles.title}>
           <a href="https://github.com/technoabsurdist/transcript.ai" target='_blank'>YouTube Transcript</a>
         </h1>
@@ -21,7 +22,7 @@ export default function Home() {
         </p>
         <LinkInput /> 
       </main>
-        <footer>
+        <footer style={{ fontFamily: 'VT323', fontSize: '22px' }}>
           Powered by 
           <a href="https://www.sievedata.com/" target='_blank'>
             <img src="/sieve.png" height="20" width="20" alt="Sieve Logo" /> 
@@ -29,7 +30,7 @@ export default function Home() {
           <a href="https://openai.com/" target='_blank'>
             <img src="/openai.png" height="20" width="20" alt="Sieve Logo" /> 
           </a>
-      </footer>
+        </footer>
 
       <style jsx>{`
         main {
@@ -64,6 +65,7 @@ export default function Home() {
           padding: 0.75rem;
           font-size: 1.1rem;
           font-family:
+            VT323,
             Menlo,
             Monaco,
             Lucida Console,

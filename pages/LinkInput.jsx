@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from './LinkInput.module.css';
 import { jsPDF } from "jspdf";
-import languages from '../languages';
-import ProcessingTypes from '../processingTypes';
+import { BarLoader } from 'react-spinners';
 
 const TESTURL = "http://localhost:3001/submit"
 const PRODURL = 'https://transcription-youtube-ai-8dbe03372f2a.herokuapp.com/submit/'
@@ -99,6 +98,9 @@ const LinkInput = () => {
         setLink('');
     };
     
+    const handleDownloadUrl = () => {
+        setDownloadUrl(null)
+    }
 
     return (
         <>
@@ -106,7 +108,7 @@ const LinkInput = () => {
                 <input 
                     type="text" 
                     className={styles.inputBar} 
-                    placeholder="Enter youtube link"
+                    placeholder="Enter YouTube link..."
                     value={link}
                     onChange={(e) => setLink(e.target.value)}
                 /> 
@@ -119,13 +121,18 @@ const LinkInput = () => {
                 </button>
             </div>
                 <p className={styles.warningText}>
-                    <span style={{ fontWeight: '600'}}>Warning</span>: cannot process regionally restricted, private, or videos longer than thirty minutes. 
+                    <span style={{ fontWeight: '800'}}>Important</span>: Premium and restricted videos are not supported. 
+                    Transcription time varies, typically up to 5 minutes, based on file size. Transcription should always take &lt; 10 minutes.   
                 </p>
-            <div>
-                {isLoading ? <div className={styles.response}>Loading... (Processing may take 1-5 minutes)</div> : (
-                    downloadUrl && <a href={downloadUrl} download="transcript.pdf" className={styles.downloadLink}>Download Transcript!</a>
-                )}
-            </div>
+                <div>
+                    {isLoading ? 
+                        <div style={{ marginTop: '20px'}}>
+                            <BarLoader color="#FF0000" height="8" width="150" />
+                        </div>
+                    :
+                        (downloadUrl && <a onClick={handleDownloadUrl} href={downloadUrl} download="transcript.pdf" className={styles.downloadLink}>Download Transcript!</a>)
+                    }
+                </div>
         </>
    );
 }
