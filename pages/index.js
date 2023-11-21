@@ -13,11 +13,11 @@ export default function Home() {
       <main>
         <img src="/youtube.svg" height="150" width="100" alt="YouTube Logo" className={styles.youtubeLogo} />
         <h1 className={styles.title}>
-          <a href="https://github.com/technoabsurdist/transcript.ai" target='_blank'>Youtube Transcript</a>
+          <a href="https://github.com/technoabsurdist/transcript.ai" target='_blank'>YouTube Transcript</a>
         </h1>
 
         <p className={styles.description}>
-          Create English Youtube video transcripts from over 50+ languages!
+          Generate transcripts for YouTube videos in over 50 languages
         </p>
         <LinkInput /> 
       </main>

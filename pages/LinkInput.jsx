@@ -66,7 +66,7 @@ const LinkInput = () => {
         };
     
         axios.request(options).then(function (response) {
-            const { text, title }= response.data;
+            const { text, title } = response.data;
             const pdfBlob = createPdf(text, title);
             const pdfUrl = URL.createObjectURL(pdfBlob);
             setDownloadUrl(pdfUrl);
