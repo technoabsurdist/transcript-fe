@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from './LinkInput.module.css';
 import { jsPDF } from "jspdf";
-import languages from './languages';
+import languages from '../languages';
 
 const TESTURL = "http://localhost:3001/submit"
 const PRODURL = 'https://transcription-youtube-ai-8dbe03372f2a.herokuapp.com/submit/'
