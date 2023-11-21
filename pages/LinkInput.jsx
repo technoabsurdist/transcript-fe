@@ -15,6 +15,7 @@ const LinkInput = () => {
     const submitLink = () => {
         if (!isValidYoutubeLink(link)) {
             alert("Error: Not a valid YouTube link. Please enter a valid YouTube URL.");
+            setLink('')
             return;
         }
 

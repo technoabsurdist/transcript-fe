@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  padding: 0 0.5rem;
+  padding: 0 1rem; /* Increased padding for better spacing */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -122,3 +122,43 @@
   background-color: #FF0000;
 }
 
+
+.title {
+  font-size: 2.4rem; 
+}
+
+.description {
+  font-size: 1rem;
+  padding: 0 1rem; 
+}
+
+#inputBar, #submitButton {
+  width: 100%; 
+  max-width: 300px; 
+  font-size: 14px; 
+}
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 2rem; 
+  }
+
+  .description {
+    font-size: 0.9rem;
+  }
+
+  .grid {
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 450px) {
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .description {
+    font-size: 0.8rem;
+  }
+}
