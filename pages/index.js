@@ -16,7 +16,7 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Get the transcript of any youtube video!
+          Generate a transcript for any youtube video!
         </p>
         <LinkInput /> 
       </main>

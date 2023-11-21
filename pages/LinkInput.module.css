@@ -43,9 +43,35 @@
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     color: #333;
-    text-align: center;
+    text-align: left;
     font-size: 16px;
     width: 300px; 
     word-break: break-word;
-    width: 100%;
+    width: 800px;
 }
+
+.downloadLink {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #4CAF50; 
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.downloadLink:hover {
+    background-color: #45a049; 
+    text-decoration: underline;
+}
+
+.downloadLink:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.5);
+}
+
