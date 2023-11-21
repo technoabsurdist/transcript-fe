@@ -1,32 +1,64 @@
 .container {
     display: flex;
+    flex-direction: column; /* Align items vertically */
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 10px; /* Spacing between elements */
     padding: 10px;
 }
 
 .inputBar {
     padding: 10px;
     border: 2px solid #040000;
-    border-radius: 5px 0 0 5px; /* Rounded corners on the left side */
+    border-radius: 5px; /* Rounded corners on all sides */
     outline: none;
-    width: 300px;
+    width: 350px;
     transition: border-color 0.3s;
     font-size: 20px;
-    margin-right: -2px; /* Negative margin to overlap borders */
     box-sizing: border-box;
 }
 
+.dropdownsContainer {
+    display: flex;
+    gap: 10px; /* Increased space between the two dropdowns */
+    justify-content: center;
+}
+
+.languageDropdown, .processingDropdown {
+    padding: 8px;
+    border: 2px solid #040000;
+    border-radius: 5px; 
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    font-size: 16px;
+    transition: border-color 0.3s, background-color 0.3s;
+    box-sizing: border-box;
+    margin-left: 5px;
+    margin-right: 5px; 
+    width: 170px; 
+}
+
+.languageDropdown:hover, .processingDropdown:hover {
+    border-color: #505050;
+    background-color: #f8f8f8;
+}
+
 .submitButton {
-    padding: 12px 15px;
+    padding: 10px;
+    border: 2px solid #040000;
+    border-radius: 5px; /* Rounded corners on all sides */
     background-color: #000000;
-    border: none;
-    border-radius: 5px;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s;
     font-size: 20px;
+    box-sizing: border-box;
+    width: 350px; /* Match the width of the input bar */
+}
+
+.submitButton:hover {
+    background-color: #505050;
 }
 
 .submitButton:hover {
@@ -86,29 +118,6 @@
     .response, .downloadLink {
         max-width: 100%; 
     }
-}
-
-.languageDropdown {
-    padding: 10px;
-    border: 2px solid #040000;
-    border-radius: 0 5px 5px 0; /* Rounded corners on the right side */
-    background-color: white;
-    color: #333;
-    cursor: pointer;
-    font-size: 18px;
-    transition: border-color 0.3s, background-color 0.3s;
-    margin-left: -10px; /* Negative margin to overlap borders */
-    box-sizing: border-box;
-}
-
-.languageDropdown:hover {
-    border-color: #505050;
-    background-color: #f8f8f8;
-}
-
-.languageDropdown:focus {
-    outline: none;
-    border-color: #252525; /* A light blue to indicate focus */
 }
 
 @media (max-width: 600px) {

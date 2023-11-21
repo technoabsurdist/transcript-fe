@@ -3,6 +3,7 @@ import axios from 'axios';
 import styles from './LinkInput.module.css';
 import { jsPDF } from "jspdf";
 import languages from '../languages';
+import ProcessingTypes from '../processingTypes';
 
 const TESTURL = "http://localhost:3001/submit"
 const PRODURL = 'https://transcription-youtube-ai-8dbe03372f2a.herokuapp.com/submit/'
@@ -12,10 +13,15 @@ const LinkInput = () => {
     const [downloadUrl, setDownloadUrl] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [selectedLanguage, setSelectedLanguage] = useState('English');
+    const [processingType, setProcessingType] = useState("Raw Transcription")
 
     const handleLanguageChange = (e) => {
         setSelectedLanguage(e.target.value);
     };
+
+    const handleProcessingChange = (e) => {
+        setProcessingType(e.target.value)
+    }
 
     const isValidYoutubeLink = (url) => {
         const regex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
@@ -60,7 +66,7 @@ const LinkInput = () => {
         setIsLoading(true);
         const options = {
             method: 'POST',
-            url: PRODURL,
+            url: TESTURL,
             headers: {'Content-Type': 'application/json', 'User-Agent': 'insomnia/8.4.0'},
             data: { link, selectedLanguage }
         };
@@ -91,17 +97,30 @@ const LinkInput = () => {
                     value={link}
                     onChange={(e) => setLink(e.target.value)}
                 /> 
-                <select
-                    value={selectedLanguage}
-                    onChange={handleLanguageChange}
-                    className={styles.languageDropdown}
-                >
-                    {Object.entries(languages).map(([language, flag]) => (
-                        <option key={language} value={language}>
-                            {flag} {language}
-                        </option>
-                    ))}
-                </select>
+                <div class="dropdownsContainer">
+                    <select
+                        value={selectedLanguage}
+                        onChange={handleLanguageChange}
+                        className={styles.languageDropdown}
+                    >
+                        {Object.entries(languages).map(([language, flag]) => (
+                            <option key={language} value={language}>
+                                {flag} {language}
+                            </option>
+                        ))}
+                    </select>
+                    <select
+                        value={processingType}
+                        onChange={handleProcessingChange}
+                        className={styles.languageDropdown}
+                    >
+                        {Object.entries(ProcessingTypes).map(([key, value]) => (
+                            <option key={key} value={key}>
+                                {value}
+                            </option>
+                        ))}
+                    </select>
+                </div>
                 <button 
                     type="button" 
                     onClick={submitLink} 
