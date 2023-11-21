@@ -23,8 +23,12 @@ export default function Home() {
       </main>
         <footer>
           Powered by 
-          <img src="/sieve.png" height="20" width="20" alt="Sieve Logo" /> 
-          <img src="/openai.png" height="20" width="20" alt="Sieve Logo" /> 
+          <a href="https://www.sievedata.com/" target='_blank'>
+            <img src="/sieve.png" height="20" width="20" alt="Sieve Logo" /> 
+          </a>
+          <a href="https://openai.com/" target='_blank'>
+            <img src="/openai.png" height="20" width="20" alt="Sieve Logo" /> 
+          </a>
       </footer>
 
       <style jsx>{`
