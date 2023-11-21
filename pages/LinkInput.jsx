@@ -16,6 +16,34 @@ const LinkInput = () => {
         return regex.test(url);
     };
 
+    const createPdf = (text, title) => {
+        const doc = new jsPDF();
+        const titleSize = 18;
+        const lineHeight = 10;
+        const margin = 10;
+    
+        // Title
+        doc.setFontSize(titleSize);
+        const trimmedTitle = title.length > 45 ? title.substring(0, 42) + '...' : title;
+        doc.text(`${trimmedTitle} --Transcript`, 10, margin);
+    
+        let yPosition = margin + titleSize;
+    
+        doc.setFontSize(12);
+    
+        const lines = doc.splitTextToSize(text, 180);
+        lines.forEach(line => {
+            if (yPosition + lineHeight > 297 - margin) {
+                doc.addPage();
+                yPosition = margin;
+            }
+            doc.text(line, 10, yPosition);
+            yPosition += lineHeight;
+        });
+    
+        return doc.output("blob");
+    };
+
     const submitLink = () => {
         if (!isValidYoutubeLink(link)) {
             alert("Error: Not a valid YouTube link. Please enter a valid YouTube URL.");
@@ -32,30 +60,15 @@ const LinkInput = () => {
         };
     
         axios.request(options).then(function (response) {
-            const responseText = response.data.text;
-            const doc = new jsPDF();
-            const lines = doc.splitTextToSize(responseText, 180);
-            const lineHeight = 10;
-            const margin = 10;
-            let yPosition = margin;
-    
-            lines.forEach(line => {
-                if (yPosition + lineHeight > 297 - margin) {
-                    doc.addPage();
-                    yPosition = margin;
-                }
-                doc.text(line, 10, yPosition);
-                yPosition += lineHeight;
-            });
-    
-            const pdfBlob = doc.output("blob");
+            const { text, title }= response.data;
+            const pdfBlob = createPdf(text, title);
             const pdfUrl = URL.createObjectURL(pdfBlob);
             setDownloadUrl(pdfUrl);
-            setIsLoading(false); 
+            setIsLoading(false);
         }).catch(function (error) {
             console.error(error);
             alert('An error occurred while processing your request');
-            setIsLoading(false); 
+            setIsLoading(false);
         });
     
         setLink('');
