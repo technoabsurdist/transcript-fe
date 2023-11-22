@@ -1,7 +1,7 @@
 .container {
     display: flex;
     flex-direction: row; /* Align items horizontally */
-    justify-content: start; /* Align items to the start of the container */
+    justify-content: flex-start; /* Align items to the start of the container */
     align-items: center; /* Center items vertically */
     gap: 10px; /* Spacing between elements */
     padding: 10px;
