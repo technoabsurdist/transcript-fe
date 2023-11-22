@@ -18,7 +18,7 @@ const LinkInput = () => {
     }
 
     function addTitle(doc, title, titleSize, margin) {
-        const trimmedTitle = title && title.length > 45 ? title.substring(0, 42) + '...' : title;
+        const trimmedTitle = title ? (title.length > 45 ? title.substring(0, 42) + '...' : title) : "";
         title && doc.text(`${trimmedTitle} -- Transcript`, 10, margin);
     }
     
