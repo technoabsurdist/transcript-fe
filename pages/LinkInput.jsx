@@ -17,9 +17,8 @@ const LinkInput = () => {
         return regex.test(url);
     }
 
-    function addTitle(doc, title, titleSize, margin) {
-        const trimmedTitle = title ? (title.length > 45 ? title.substring(0, 42) + '...' : title) : "";
-        title && doc.text(`${trimmedTitle} -- Transcript`, 10, margin);
+    function addTitle(doc, title, margin) {
+        title ? doc.text(`${title} -- Transcript`, 10, margin) : doc.text("Transcript", 10, margin)
     }
     
     function addContentSection(doc, contentLines, lineHeight, yPosition, bottomMargin, sectionTitle) {
@@ -56,7 +55,7 @@ const LinkInput = () => {
         const lineHeight = 10;
         const margin = 10;
     
-        title ?? addTitle(doc, title, titleSize, margin)
+        title ? addTitle(doc, title, margin) : ""
     
         let currentY = margin + titleSize + 5;
         currentY = chapters ? addContentSection(doc, formatChapters(chapters), lineHeight, currentY, margin, 'Chapters') : currentY;
