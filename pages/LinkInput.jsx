@@ -13,8 +13,8 @@ const LinkInput = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const isValidYoutubeLink = (url) => {
-        const regex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
-        return regex.test(url);
+            const regex = /^(https?:\/\/)?((www|m)\.)?(youtube\.com|youtu\.be)(\/(watch\?v=|embed\/|channel\/)|\/)([a-zA-Z0-9\-_]+)(\&list=[a-zA-Z0-9\-_]+)?$/;
+            return regex.test(url);
     };
 
     function addTitle(doc, title, titleSize, margin) {
