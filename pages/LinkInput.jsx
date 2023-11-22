@@ -18,7 +18,7 @@ const LinkInput = () => {
     };
 
     function addTitle(doc, title, titleSize, margin) {
-        const trimmedTitle = title.length > 45 ? title.substring(0, 42) + '...' : title;
+        const trimmedTitle = title && title.length > 45 ? title.substring(0, 42) + '...' : title;
         title && doc.text(`${trimmedTitle} -- Transcript`, 10, margin);
     }
     
@@ -56,12 +56,12 @@ const LinkInput = () => {
         const lineHeight = 10;
         const margin = 10;
     
-        addTitle(doc, title, titleSize, margin);
+        title ?? addTitle(doc, title, titleSize, margin)
     
         let currentY = margin + titleSize + 5;
-        currentY = addContentSection(doc, formatChapters(chapters), lineHeight, currentY, margin, 'Chapters:');
-        currentY = addContentSection(doc, tags.length > 0 ? ['Tags: ' + tags.join(', ')] : [], lineHeight, currentY, margin, '');
-        currentY = addContentSection(doc, doc.splitTextToSize(summary, 180), lineHeight, currentY, margin, 'Summary:');
+        currentY = chapters ? addContentSection(doc, formatChapters(chapters), lineHeight, currentY, margin, 'Chapters:') : currentY;
+        currentY = tags ? addContentSection(doc, tags.length > 0 ? ['Tags: ' + tags.join(', ')] : [], lineHeight, currentY, margin, '') : currentY;
+        currentY = summary ? addContentSection(doc, doc.splitTextToSize(summary, 180), lineHeight, currentY, margin, 'Summary:') : currentY;
         addContentSection(doc, doc.splitTextToSize(text, 180), lineHeight, currentY, margin, 'Text:');
     
         return doc.output("blob");
@@ -89,11 +89,7 @@ const LinkInput = () => {
             const pdfUrl = URL.createObjectURL(pdfBlob);
             setDownloadUrl(pdfUrl);
             setIsLoading(false);
-        }).catch(function (error) {
-            console.error(error);
-            alert('An error occurred while processing your request');
-            setIsLoading(false);
-        });
+        }) 
     
         setLink('');
     };
