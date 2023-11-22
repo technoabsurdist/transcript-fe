@@ -59,10 +59,10 @@ const LinkInput = () => {
         title ?? addTitle(doc, title, titleSize, margin)
     
         let currentY = margin + titleSize + 5;
-        currentY = chapters ? addContentSection(doc, formatChapters(chapters), lineHeight, currentY, margin, 'Chapters:') : currentY;
-        currentY = tags ? addContentSection(doc, tags.length > 0 ? ['Tags: ' + tags.join(', ')] : [], lineHeight, currentY, margin, '') : currentY;
-        currentY = summary ? addContentSection(doc, doc.splitTextToSize(summary, 180), lineHeight, currentY, margin, 'Summary:') : currentY;
-        addContentSection(doc, doc.splitTextToSize(text, 180), lineHeight, currentY, margin, 'Text:');
+        currentY = chapters ? addContentSection(doc, formatChapters(chapters), lineHeight, currentY, margin, 'Chapters') : currentY;
+        currentY = tags ? addContentSection(doc, tags.length > 0 ? ['Tags ' + tags.join(', ')] : [], lineHeight, currentY, margin, '') : currentY;
+        currentY = summary ? addContentSection(doc, doc.splitTextToSize(summary, 180), lineHeight, currentY, margin, 'Summary') : currentY;
+        addContentSection(doc, doc.splitTextToSize(text, 180), lineHeight, currentY, margin, 'Text');
     
         return doc.output("blob");
     }
