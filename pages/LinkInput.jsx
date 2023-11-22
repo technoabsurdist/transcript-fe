@@ -5,7 +5,7 @@ import { jsPDF } from "jspdf";
 import { BarLoader } from 'react-spinners';
 
 const TESTURL = "http://localhost:3001/submit"
-const PRODURL = 'https://transcription-youtube-ai-8dbe03372f2a.herokuapp.com/submit/'
+const PRODURL = 'https://transcription-ai2-45d1977a4b48.herokuapp.com/submit/'
 
 const LinkInput = () => {
     const [link, setLink] = useState('');
