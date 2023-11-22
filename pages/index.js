@@ -30,6 +30,13 @@ export default function Home() {
           <a href="https://openai.com/" target='_blank'>
             <img src="/openai.png" height="25" width="25" alt="Sieve Logo" /> 
           </a>
+          &nbsp;
+          | 
+          &nbsp;
+          <a href="https://github.com/technoabsurdist/transcript.ai" target='_blank'>
+          Contribute 
+            <img src="/githublogo.png" height="25" width="25" alt="Sieve Logo" /> 
+          </a>
         </footer>
 
       <style jsx>{`
