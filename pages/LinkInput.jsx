@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './LinkInput.module.css';
 import { jsPDF } from "jspdf";
-import { BarLoader } from 'react-spinners';
+import Progress from './ProgressBar';
 
 const TESTURL = "http://localhost:3001/submit"
 const PRODURL = 'https://transcription-ai2-45d1977a4b48.herokuapp.com/submit/'
@@ -11,6 +11,26 @@ const LinkInput = () => {
     const [link, setLink] = useState('');
     const [downloadUrl, setDownloadUrl] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+        let interval;
+        if (isLoading) {
+            interval = setInterval(() => {
+                setProgress(oldProgress => {
+                    const newProgress = Math.min(oldProgress + (Math.random() < 0.5 ? 2 : 5), 95); 
+                    return newProgress;
+                });
+            }, 2000); 
+        }
+        // } else if (!isLoading && progress < 100) {
+        //     setProgress(100);
+        // }
+    
+        return () => clearInterval(interval);
+    }, [isLoading, progress]);
+       
+
 
     const isValidYoutubeLink = (url) => {
         const regex = /^(https?:\/\/)?(www\.youtube\.com|youtu\.be|m\.youtube\.com)\/.+/;
@@ -73,8 +93,9 @@ const LinkInput = () => {
             setLink('');
             return;
         }
-    
+
         setIsLoading(true);
+    
         const options = {
             method: 'POST',
             url: PRODURL,
@@ -121,10 +142,10 @@ const LinkInput = () => {
                 </p>
                 <div>
                     {isLoading ? 
-                        <div style={{ marginTop: '20px'}}>
-                            <BarLoader color="#FF0000" height="8" width="150" />
+                        <div className={styles.progressBar}>
+                            <Progress bgcolor={"#FF0000"} completed={progress} />
                         </div>
-                    :
+                   :
                         (downloadUrl && <a onClick={handleDownloadUrl} href={downloadUrl} download="transcript.pdf" className={styles.downloadLink}>Download Transcript!</a>)
                     }
                 </div>
