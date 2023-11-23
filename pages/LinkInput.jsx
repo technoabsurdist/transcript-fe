@@ -23,10 +23,7 @@ const LinkInput = () => {
                 });
             }, 2000); 
         }
-        // } else if (!isLoading && progress < 100) {
-        //     setProgress(100);
-        // }
-    
+
         return () => clearInterval(interval);
     }, [isLoading, progress]);
        
@@ -116,6 +113,7 @@ const LinkInput = () => {
     
     const handleDownloadUrl = () => {
         setDownloadUrl(null)
+        setProgress(0)
     }
 
     return (
