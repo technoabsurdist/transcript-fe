@@ -26,8 +26,6 @@ const LinkInput = () => {
 
         return () => clearInterval(interval);
     }, [isLoading, progress]);
-       
-
 
     const isValidYoutubeLink = (url) => {
         const regex = /^(https?:\/\/)?(www\.youtube\.com|youtu\.be|m\.youtube\.com)\/.+/;
@@ -136,7 +134,7 @@ const LinkInput = () => {
             </div>
                 <p className={styles.warningText}>
                     <span style={{ fontWeight: '800'}}>Important</span>: Premium and restricted videos are not supported. 
-                    Processing time varies, typically up to 5 minutes, based on file size. Currently only stable for videos &lt; 10m.   
+                     Currently only stable for videos &lt; 10m.   
                 </p>
                 <div>
                     {isLoading ? 
