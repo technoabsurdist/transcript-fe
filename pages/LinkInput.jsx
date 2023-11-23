@@ -138,7 +138,7 @@ const LinkInput = () => {
             </div>
                 <p className={styles.warningText}>
                     <span style={{ fontWeight: '800'}}>Important</span>: Premium and restricted videos are not supported. 
-                    Processing time varies, typically up to 5 minutes, based on file size. Transcription should always take &lt; 10 minutes.   
+                    Processing time varies, typically up to 5 minutes, based on file size. Currently only stable for videos &lt; 10m.   
                 </p>
                 <div>
                     {isLoading ? 
