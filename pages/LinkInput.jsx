@@ -6,10 +6,7 @@ import Progress from './ProgressBar';
 
 const TESTURL = "http://localhost:3001"
 const PRODURL = 'https://transcription-ai2-45d1977a4b48.herokuapp.com'
-const SUBMIT_URL = `${TESTURL}/submit`
-const FETCH_URL = `${TESTURL}/jobs`    
-const MAX_RETRIES = 5;
-const RETRY_INTERVAL = 2000;
+const SUBMIT_URL = `${PRODURL}/submit`
 
 const LinkInput = () => {
     const [link, setLink] = useState('');
