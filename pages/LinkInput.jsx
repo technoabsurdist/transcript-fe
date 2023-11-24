@@ -94,15 +94,15 @@ const LinkInput = () => {
         const options = {
             method: 'POST',
             url: PRODURL,
-            headers: {'Content-Type': 'application/json', 'User-Agent': 'insomnia/8.4.0'},
+            headers: {'Content-Type': 'application/json'},
             data: { link }
         };
     
         axios.request(options).then(function (response) {
-            const { text, summary, title, tags, chapters } = response.data
-            const pdfBlob = createPdf(text, summary, title, tags, chapters);
+            const res = response.data
+            const pdfBlob = createPdf(...res);
             const pdfUrl = URL.createObjectURL(pdfBlob);
-            setDownloadUrl(pdfUrl);
+            console.log(pdfUrl)
             setIsLoading(false);
         }) 
     
