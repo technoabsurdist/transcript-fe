@@ -4,14 +4,19 @@ import styles from './LinkInput.module.css';
 import { jsPDF } from "jspdf";
 import Progress from './ProgressBar';
 
-const TESTURL = "http://localhost:3001/submit"
-const PRODURL = 'https://transcription-ai2-45d1977a4b48.herokuapp.com/submit/'
+const TESTURL = "http://localhost:3001"
+const PRODURL = 'https://transcription-ai2-45d1977a4b48.herokuapp.com'
+const SUBMIT_URL = `${TESTURL}/submit`
+const FETCH_URL = `${TESTURL}/jobs`    
+const MAX_RETRIES = 5;
+const RETRY_INTERVAL = 2000;
 
 const LinkInput = () => {
     const [link, setLink] = useState('');
     const [downloadUrl, setDownloadUrl] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [progress, setProgress] = useState(0);
+    const [jobId, setJobId] = useState(""); 
 
     useEffect(() => {
         let interval;
@@ -83,36 +88,47 @@ const LinkInput = () => {
 
     const submitLink = () => {
         setDownloadUrl(null)
+    
         if (!isValidYoutubeLink(link)) {
             alert("Error: Not a valid YouTube link. Please enter a valid YouTube URL.");
             setLink('');
             return;
         }
-
+    
         setIsLoading(true);
     
         const options = {
             method: 'POST',
-            url: PRODURL,
+            url: SUBMIT_URL,
             headers: {'Content-Type': 'application/json'},
             data: { link }
         };
     
         axios.request(options).then(function (response) {
-            const res = response.data
-            const pdfBlob = createPdf(...res);
-            const pdfUrl = URL.createObjectURL(pdfBlob);
-            console.log(pdfUrl)
+            if (response.status === 200) { 
+                console.log("Creating PDF...");     
+                const pdfBlob = createPdf(response.data.text, response.data.summary, response.data.title, response.data.tags, response.data.chapters);
+                const pdfUrl = URL.createObjectURL(pdfBlob);
+                setDownloadUrl(pdfUrl);
+                setProgress(100);
+                setIsLoading(false);
+            }
+        }).catch(function (error) {
+            console.log(error);
             setIsLoading(false);
-        }) 
-    
+        });
+
         setLink('');
     };
-    
+
     const handleDownloadUrl = () => {
         setDownloadUrl(null)
         setProgress(0)
     }
+
+    const submitHelper = async () => {
+        submitLink();
+    };
 
     return (
         <>
@@ -126,7 +142,7 @@ const LinkInput = () => {
                 /> 
                 <button 
                     type="button" 
-                    onClick={submitLink} 
+                    onClick={submitHelper} 
                     className={styles.submitButton}
                 >
                     Submit
