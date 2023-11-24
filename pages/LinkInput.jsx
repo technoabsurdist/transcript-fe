@@ -13,7 +13,6 @@ const LinkInput = () => {
     const [downloadUrl, setDownloadUrl] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [progress, setProgress] = useState(0);
-    const [jobId, setJobId] = useState(""); 
 
     useEffect(() => {
         let interval;
@@ -112,9 +111,8 @@ const LinkInput = () => {
             }
         }).catch(function (error) {
             console.log(error);
-            setIsLoading(false);
         });
-
+        
         setLink('');
     };
 
