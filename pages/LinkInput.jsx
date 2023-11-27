@@ -36,6 +36,11 @@ const LinkInput = () => {
     function addTitle(doc, title, margin) {
         title ? doc.text(`${title} -- Transcript`, 10, margin) : doc.text("Transcript", 10, margin)
     }
+
+    function addAuthor(doc, author, margin) {
+        title ? doc.text(`${author}`, 8, margin) : ""
+    }
+ 
     
     function addContentSection(doc, contentLines, lineHeight, yPosition, bottomMargin, sectionTitle) {
         if (contentLines.length > 0) {
@@ -61,15 +66,20 @@ const LinkInput = () => {
         return yPosition;
     }
     
-    function createPdf(text, title) {
+    function createPdf(text, title, author, summary) {
         const doc = new jsPDF();
         const titleSize = 18;
         const lineHeight = 10;
         const margin = 10;
     
+        // Title and Author
         title ? addTitle(doc, title, margin) : ""
+        author ? addAuthor(doc, title, margin) : ""
+
         let currentY = margin + titleSize + 5;
 
+        // Summary and Transcription
+        addContentSection(doc, doc.splitTextToSize(summary, 240), lineHeight, currentY, margin, 'Summary'); 
         addContentSection(doc, doc.splitTextToSize(text, 240), lineHeight, currentY, margin, '');
     
         return doc.output("blob");
@@ -96,7 +106,7 @@ const LinkInput = () => {
         axios.request(options).then(function (response) {
             if (response.status === 200) { 
                 console.log("Creating PDF...");     
-                const pdfBlob = createPdf(response.data.text, response.data.title);
+                const pdfBlob = createPdf(response.data.text, response.data.title, response.data.author, response.data.summary);
                 const pdfUrl = URL.createObjectURL(pdfBlob);
                 setDownloadUrl(pdfUrl);
                 setProgress(100);
