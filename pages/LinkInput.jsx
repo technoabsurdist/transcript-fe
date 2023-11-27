@@ -38,7 +38,7 @@ const LinkInput = () => {
     }
 
     function addAuthor(doc, author, margin) {
-        title ? doc.text(`${author}`, 8, margin) : ""
+        author ? doc.text(`${author}`, 8, margin) : ""
     }
  
     
@@ -74,7 +74,7 @@ const LinkInput = () => {
     
         // Title and Author
         title ? addTitle(doc, title, margin) : ""
-        author ? addAuthor(doc, title, margin) : ""
+        author ? addAuthor(doc, author, margin) : ""
 
         let currentY = margin + titleSize + 5;
 
