@@ -18,7 +18,7 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Develop detailed transcripts in over 50 languages, <br /> enhanced with AI-created titles, chapter divisions, <br /> concise summaries, and relevant tags.
+          Develop detailed transcripts in over 50 languages, <br /> with title and concise AI-generated summaries.
         </p>
         <LinkInput /> 
       </main>

@@ -4,8 +4,8 @@ import styles from './LinkInput.module.css';
 import { jsPDF } from "jspdf";
 import Progress from './ProgressBar';
 
-const TESTURL = "http://localhost:3001"
-const PRODURL = 'https://transcription-ai2-45d1977a4b48.herokuapp.com'
+// const TESTURL = "http://127.0.0.1:5000"
+const PRODURL = 'https://transcript-ai-py-5715a6893b2c.herokuapp.com/'
 const SUBMIT_URL = `${PRODURL}/submit`
 
 const LinkInput = () => {
@@ -39,7 +39,7 @@ const LinkInput = () => {
     
     function addContentSection(doc, contentLines, lineHeight, yPosition, bottomMargin, sectionTitle) {
         if (contentLines.length > 0) {
-            yPosition += 5; // Extra spacing before new section
+            yPosition += 5; 
             doc.setFontSize(14);
             doc.text(sectionTitle, 10, yPosition);
             yPosition += lineHeight;
@@ -48,7 +48,7 @@ const LinkInput = () => {
             contentLines.forEach(line => {
                 if (yPosition + lineHeight > 297 - bottomMargin) {
                     doc.addPage();
-                    yPosition = bottomMargin; // Reset Y position after page break
+                    yPosition = bottomMargin; 
                     doc.setFontSize(14);
                     doc.text(sectionTitle, 10, yPosition);
                     yPosition += lineHeight;
@@ -61,23 +61,16 @@ const LinkInput = () => {
         return yPosition;
     }
     
-    function formatChapters(chapters) {
-        return chapters.map(chapter => `${chapter.title} (Starts at: ${chapter.timecode})`);
-    }
-    
-    function createPdf(text, summary, title, tags, chapters) {
+    function createPdf(text, title) {
         const doc = new jsPDF();
         const titleSize = 18;
         const lineHeight = 10;
         const margin = 10;
     
         title ? addTitle(doc, title, margin) : ""
-    
         let currentY = margin + titleSize + 5;
-        currentY = chapters ? addContentSection(doc, formatChapters(chapters), lineHeight, currentY, margin, 'Chapters') : currentY;
-        currentY = tags ? addContentSection(doc, tags.length > 0 ? ['Tags ' + tags.join(', ')] : [], lineHeight, currentY, margin, '') : currentY;
-        currentY = summary ? addContentSection(doc, doc.splitTextToSize(summary, 180), lineHeight, currentY, margin, 'Summary') : currentY;
-        addContentSection(doc, doc.splitTextToSize(text, 180), lineHeight, currentY, margin, 'Text');
+
+        addContentSection(doc, doc.splitTextToSize(text, 240), lineHeight, currentY, margin, '');
     
         return doc.output("blob");
     }
@@ -97,13 +90,13 @@ const LinkInput = () => {
             method: 'POST',
             url: SUBMIT_URL,
             headers: {'Content-Type': 'application/json'},
-            data: { link }
+            data: { url: link }
         };
     
         axios.request(options).then(function (response) {
             if (response.status === 200) { 
                 console.log("Creating PDF...");     
-                const pdfBlob = createPdf(response.data.text, response.data.summary, response.data.title, response.data.tags, response.data.chapters);
+                const pdfBlob = createPdf(response.data.text, response.data.title);
                 const pdfUrl = URL.createObjectURL(pdfBlob);
                 setDownloadUrl(pdfUrl);
                 setProgress(100);
