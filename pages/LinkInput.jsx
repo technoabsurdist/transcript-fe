@@ -43,20 +43,24 @@ const LinkInput = () => {
  
     
     function addContentSection(doc, contentLines, lineHeight, yPosition, bottomMargin, sectionTitle) {
+        let maxY = 297 - bottomMargin; 
+    
         if (contentLines.length > 0) {
-            yPosition += 5; 
+            yPosition += 5;
             doc.setFontSize(14);
             doc.text(sectionTitle, 10, yPosition);
             yPosition += lineHeight;
     
             doc.setFontSize(12);
             contentLines.forEach(line => {
-                if (yPosition + lineHeight > 297 - bottomMargin) {
+                if (yPosition + lineHeight > maxY) {
                     doc.addPage();
-                    yPosition = bottomMargin; 
-                    doc.setFontSize(14);
-                    doc.text(sectionTitle, 10, yPosition);
-                    yPosition += lineHeight;
+                    yPosition = bottomMargin;
+                    if (sectionTitle) {
+                        doc.setFontSize(14);
+                        doc.text(sectionTitle, 10, yPosition);
+                        yPosition += lineHeight;
+                    }
                     doc.setFontSize(12);
                 }
                 doc.text(line, 10, yPosition);
@@ -73,18 +77,19 @@ const LinkInput = () => {
         const margin = 10;
     
         // Title and Author
-        title ? addTitle(doc, title, margin) : ""
-        author ? addAuthor(doc, author, margin) : ""
-
+        if (title) addTitle(doc, title, margin);
+        if (author) addAuthor(doc, author, margin + titleSize);
+    
         let currentY = margin + titleSize + 5;
-
+    
         // Summary and Transcription
-        addContentSection(doc, doc.splitTextToSize(summary, 240), lineHeight, currentY, margin, 'Summary'); 
-        addContentSection(doc, doc.splitTextToSize(text, 240), lineHeight, currentY, margin, '');
+        currentY = addContentSection(doc, doc.splitTextToSize(summary, 180), lineHeight, currentY, margin, 'Summary');
+        currentY += lineHeight; // Add extra space between sections
+        addContentSection(doc, doc.splitTextToSize(text, 180), lineHeight, currentY, margin, 'Transcription');
     
         return doc.output("blob");
     }
-
+    
     const submitLink = () => {
         setDownloadUrl(null)
     
