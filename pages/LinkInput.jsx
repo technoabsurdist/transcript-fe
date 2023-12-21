@@ -151,10 +151,6 @@ const LinkInput = () => {
                     Submit
                 </button>
             </div>
-                <p className={styles.warningText}>
-                    <span style={{ fontWeight: '800'}}>Important</span>: Premium and restricted videos are not supported. 
-                     Currently only stable for videos &lt; 10m.   
-                </p>
                 <div>
                     {isLoading ? 
                         <div className={styles.progressBar}>
